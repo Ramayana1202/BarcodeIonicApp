@@ -1,0 +1,55 @@
+<!--
+  Generated template for the InventoryTransferPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>inventory-transfer</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-item>
+    <ion-label>
+      <ion-icon name="barcode"></ion-icon>
+    </ion-label>
+    <ion-input type="text" placeholder="Barcode" [(ngModel)]="barcode" name="barcode" (keydown)="handler($event)" #focusInput></ion-input>
+  </ion-item>
+
+  <ion-grid>
+
+    <ion-row justify-content-start class="rowHeader">
+      <ion-col *ngFor="let col of structrure" [hidden]="col.Width <= 0" #{{col.ColumnName}} width-10>
+        {{col.Caption}}
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let row of data" justify-content-start>
+      <ion-col *ngFor="let col of structrure" [hidden]="col.Width <= 0" #{{row[col.ColumnName]}} width-10>
+        {{row[col.ColumnName]}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <button ion-button icon-left (click)="scan()" *ngIf="isUseBarcode">
+    <ion-icon name="barcode" > Scan</ion-icon>
+  </button>
+
+  <button ion-button icon-left (click)="refreshForm()" *ngIf="data!= null">
+    <ion-icon name="refresh" > Refresh</ion-icon>
+  </button>
+
+  <button ion-button icon-right (click)="submit()" *ngIf="data!= null">
+    <ion-icon name="arrow-round-forward" > Confirm Bin</ion-icon>
+  </button>
+
+</ion-content>

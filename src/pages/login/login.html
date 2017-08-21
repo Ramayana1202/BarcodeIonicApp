@@ -1,0 +1,54 @@
+<ion-header>
+
+  <ion-navbar>
+
+    <button ion-button menuToggle *ngIf="isLogin">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>{{ 'LOGIN_TITLE' | translate }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <form (submit)="doLogin()">
+    <ion-list>
+
+      <ion-item>
+        <ion-label fixed>{{ 'DOMAIN' | translate }}</ion-label>
+        <ion-input type="text" [(ngModel)]="account.Doimain" name="domain" (change)="domainChange()" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>{{ 'COMPANY' | translate }}</ion-label>
+        <ion-select class="myCustomSelect" [(ngModel)]="account.DbName" multiple="false" name="company" required>
+          <ion-option *ngFor="let company of listCompany" value="{{company.ID}}">{{company.Name}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>{{ 'USERNAME' | translate }}</ion-label>
+        <ion-input type="text" [(ngModel)]="account.UserName" name="username" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>{{ 'PASSWORD' | translate }}</ion-label>
+        <ion-input type="password" [(ngModel)]="account.Password" name="password" required></ion-input>
+      </ion-item>
+
+      <div padding>
+        <button ion-button color="primary" [disabled]="disable" block>{{ 'LOGIN_BUTTON' | translate }}</button>
+      </div>
+
+    </ion-list>
+  </form>
+
+  <div padding>
+    <button ion-button icon-left color="primary" [disabled]="disable" block (click)="openSetting()">{{ 'SETTINGS_TITLE' | translate }}
+      <ion-icon name="settings"></ion-icon>
+    </button>
+  </div>
+  
+</ion-content>
