@@ -8,7 +8,8 @@ import { FirstRunPage } from '../pages/pages';
 import { LoginPage } from '../pages/login/login';
 import { SettingsPage } from '../pages/settings/settings';
 import { ReportCompletePage } from '../pages/report-complete/report-complete';
-import { InventoryTransferPage } from '../pages/inventory-transfer/inventory-transfer';;
+import { InventoryTransferPage } from '../pages/inventory-transfer/inventory-transfer';
+import { PickedConfirmPage } from '../pages/picked-confirm/picked-confirm';
 
 import { Settings } from '../providers/providers';
 import { Login } from '../providers/login';
@@ -29,6 +30,7 @@ export class MyApp {
     { title: 'Login', component: LoginPage },
     { title: 'Report Complete', component: ReportCompletePage },
     { title: 'Inventory Transfer', component: InventoryTransferPage },
+    { title: 'Picked Confirm', component: PickedConfirmPage },
     { title: 'Settings', component: SettingsPage }
   ]
 

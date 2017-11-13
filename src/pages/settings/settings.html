@@ -18,20 +18,21 @@
         <ion-label>{{ 'SETTINGS_BARCODE' | translate }}</ion-label>
         <ion-toggle formControlName="barcodeInternal"></ion-toggle>
       </ion-item>
-      
+
       <ion-item>
         <ion-label>{{ 'DEFAULT_PAGE' | translate }}</ion-label>
         <ion-select formControlName="defaultPage">
           <ion-option value="ReportCompletePage" checked="true">Report Complete Page</ion-option>
           <ion-option value="InventoryTransferPage">Inventory Transfer Page</ion-option>
+          <ion-option value="PickedConfirmPage">Picked Confirm Page</ion-option>
         </ion-select>
       </ion-item>
-      
+
       <ion-item>
         <ion-label>API</ion-label>
         <ion-input formControlName="apiAdress"></ion-input>
       </ion-item>
-      
+
       <button ion-item [navPush]="subSettings" [navParams]="profileSettings">
         {{ 'SETTINGS_LOGINFO_BUTTON' | translate }}
       </button>
@@ -51,7 +52,7 @@
         <ion-input formControlName="userName"></ion-input>
       </ion-item>
     </ion-list>
-    
+
   </form>
 
 </ion-content>

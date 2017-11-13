@@ -11,6 +11,7 @@ import { SettingsPage } from '../pages/settings/settings';
 import { ReportCompletePage } from '../pages/report-complete/report-complete';
 import { InventoryTransferPage } from '../pages/inventory-transfer/inventory-transfer';
 import { BinConfirmPage } from '../pages/bin-confirm/bin-confirm';
+import { PickedConfirmPage } from '../pages/picked-confirm/picked-confirm';
 
 import { Api } from '../providers/api';
 import { Settings } from '../providers/settings';
@@ -18,6 +19,8 @@ import { Login } from '../providers/login';
 import { ReportComplete } from '../providers/report-complete';
 import { Common } from '../providers/common';
 import { InventoryTransfers } from '../providers/inventory-transfers';
+import { PickedConfirm } from '../providers/picked-confirm';
+
 
 import { Camera } from '@ionic-native/camera';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
@@ -57,7 +60,8 @@ export function provideSettings(storage: Storage) {
     SettingsPage,
     ReportCompletePage,
     InventoryTransferPage,
-    BinConfirmPage
+    BinConfirmPage,
+    PickedConfirmPage
   ],
   imports: [
     BrowserModule,
@@ -79,7 +83,8 @@ export function provideSettings(storage: Storage) {
     SettingsPage,
     ReportCompletePage,
     InventoryTransferPage,
-    BinConfirmPage
+    BinConfirmPage,
+    PickedConfirmPage
   ],
   providers: [
     Api,
@@ -91,6 +96,7 @@ export function provideSettings(storage: Storage) {
     BarcodeScanner,
     SplashScreen,
     StatusBar,
+    PickedConfirm,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },

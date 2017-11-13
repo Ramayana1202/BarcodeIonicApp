@@ -1,3 +1,5 @@
+import { HttpClientFactory } from './../http-client/http-factory';
+import { IHttpClient } from './../http-client/http-client';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Api } from './api';
@@ -5,10 +7,13 @@ import { Settings } from './settings';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
+
+
 @Injectable()
 export class Login {
   public listCompany: any;
   _login: any;
+  public _httpClient : IHttpClient = HttpClientFactory.GetHttpClient();
 
   constructor(public http: Http, public api: Api, public setting: Settings) {
   }

@@ -7,12 +7,19 @@ import 'rxjs/add/operator/toPromise';
  * Api is a generic REST Api handler. Set your API url first.
  */
 @Injectable()
-export class Api {
-  url: string; //='http://172.16.195.60:8082/api';
+export class HttpClientHelper {
+  url: string;
   _sessionId: any;
+  _controller: string;
+  _options: RequestOptions;
 
   constructor(public http: Http) {
-
+    let header = new Headers();
+    header.append('Content-Type', 'application/json');
+    header.append('SessionId', this._sessionId);
+    this._options = new RequestOptions({
+      headers: header,
+    })
   }
 
   get(controller: string, endpoint: string, params?: { name: any, value: any }[], options?: RequestOptions) {
@@ -33,11 +40,7 @@ export class Api {
     return this.http.get(this.url + '/' + controller + '/' + endpoint, options);
   }
 
-  async getAsyncDataSet(controller: string, action: string, params?: { name: any, value: any }[], options?: RequestOptions) {
-    if (!options) {
-      options = this.creatOption();
-    }
-
+  async getAsync(action: string, params?: { name: any, value: any }[]) {
     // Support easy query params for GET requests
     if (params) {
       let p = new URLSearchParams();
@@ -46,26 +49,43 @@ export class Api {
       }
       // Set the search field if we have params and don't already have
       // a search field set in options.
-      options.search = !options.search && p || options.search;
+      this._options.search = !this._options.search && p || this._options.search;
     }
-
-    return await new Promise(resolve => {
-      this.http.get(this.url + '/' + controller + '/' + action, options)
+    return new Promise(resolve => {
+      this.http.get(this.url + '/' + this._controller + '/' + action, this._options)
         .map(res => res.json())
         .subscribe(data => {
-          let dataSet: any;
-          for (var property in data) {
-            if (data.hasOwnProperty(property)) {
-              let table = this.ApzJsonDeserialize(data[property]);
-              if (dataSet == null)
-                dataSet = table;
-              else
-                dataSet.push(table);
-            }
+          resolve(data);
+          Error => {
+            console.log(Error);
           }
-          //data.forEach(element => {
-          //  dataSet.push(this.ApzJsonDeserialize(element));
-          //});
+        });
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
+  async getAsyncDataSet(action: string, params?: { name: any, value: any }[]) {
+    // Support easy query params for GET requests
+    if (params) {
+      let p = new URLSearchParams();
+      for (let k in params) {
+        p.set(params[k].name, params[k].value);
+      }
+      // Set the search field if we have params and don't already have
+      // a search field set in options.
+      this._options.search = !this._options.search && p || this._options.search;
+    }
+    return new Promise(resolve => {
+      this.http.get(this.url + '/' + this._controller + '/' + action, this._options)
+        .map(res => res.json())
+        .subscribe(data => {
+          console.log(data);
+          let dataSet: [{}];
+          if (data.count > 0)
+            data.forEach(element => {
+              dataSet.push(this.ApzJsonDeserialize(element));
+            });
           resolve(dataSet);
           Error => {
             console.log(Error);

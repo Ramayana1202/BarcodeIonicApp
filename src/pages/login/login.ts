@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { MainPage } from '../../pages/pages';
 import { InventoryTransferPage } from '../../pages/inventory-transfer/inventory-transfer';
+import { PickedConfirmPage } from '../../pages/picked-confirm/picked-confirm';
 import { SettingsPage } from '../../pages/settings/settings';
 
 import { Login, Common, MsgType, Settings } from '../../providers/providers';
@@ -78,6 +79,9 @@ export class LoginPage {
         switch (this.setting.settings.defaultPage) {
           case 'ReportCompletePage':
             this.navCtrl.setRoot(MainPage);
+            break;
+          case 'PickedConfirmPage':
+            this.navCtrl.setRoot(PickedConfirmPage);
             break;
           default:
             this.navCtrl.setRoot(InventoryTransferPage);
